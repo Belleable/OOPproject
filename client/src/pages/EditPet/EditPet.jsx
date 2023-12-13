@@ -7,6 +7,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const EditPet = () => {
     const [pet, setPet] = useState({
+        petPfp: "",
         petName: "",
         petType: "",
         petGender: "",
@@ -94,7 +95,7 @@ const EditPet = () => {
                             <h3>Upload Image</h3>
                             <p>Image size must be less than <span>2MB</span></p>
                         </div>
-                        <input type="file" id="file" accept="image/*" />
+                        <input type="file" id="file" accept="image/*" value={pet.petPfp} />
                     </div>
 
                     <div class="textinfo">
