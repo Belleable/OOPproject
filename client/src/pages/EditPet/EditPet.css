@@ -1,10 +1,10 @@
-.addpet *{
+.EditPet *{
     margin: 0 0;
     padding: 0 0;
     box-sizing: border-box;
 }
 
-.addpet body {
+.EditPet body {
 	display: flex;
 	padding: 60px;
 	justify-content: center;
@@ -14,7 +14,7 @@
     font-family: 'Catamaran';
 }
 
-.addpet .back i {
+.EditPet .back i {
 	transition: all .2s ease-in-out; 
 	color: rgb(88, 75, 65);
     position: absolute;
@@ -23,11 +23,11 @@
 	z-index: 500;
 }
 
-.addpet .back i:hover {
+.EditPet .back i:hover {
 	transform: scale(1.15); 
 }
 
-.addpet main {
+.EditPet main {
     background-color: #fff;
     border-radius: 30px;
     padding: 20px;
@@ -35,13 +35,13 @@
 	position: relative;
 }
 
-.addpet .container {
+.EditPet .container {
 	width: 100%;
 	padding: 20px;
 
 }
 
-.addpet .img-area {
+.EditPet .img-area {
 	position: relative;
 	width: 270px;
 	aspect-ratio: 1/1;
@@ -55,18 +55,18 @@
 	margin: 0 auto;
 }
 
-.addpet .img-area h3 {
+.EditPet .img-area h3 {
 	font-size: 20px;
 	font-weight: 500;
 	margin-bottom: 6px;
 }
-.addpet .img-area p {
+.EditPet .img-area p {
 	color: #999;
 }
-.addpet .img-area p span {
+.EditPet .img-area p span {
 	font-weight: 600;
 }
-.addpet .img-area img {
+.EditPet .img-area img {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -76,14 +76,14 @@
 	z-index: 100;
 }
 
-.addpet #file{
+.EditPet #file{
 	margin: 20px;
 	position: absolute;
 	left: 80px;
 }
 
 
-.addpet #file::-webkit-file-upload-button{
+.EditPet #file::-webkit-file-upload-button{
 	padding: 7px 20px;
 	border-radius: 20px;
 	background-color: rgb(117, 202, 199);
@@ -92,14 +92,14 @@
 	cursor: pointer;
 }
 
-.addpet #file::-webkit-file-upload-button:hover{
+.EditPet #file::-webkit-file-upload-button:hover{
 	background-color: rgb(127, 109, 94);
 	color: #fff;
 	transition: .3s;
 }
 
 
-.addpet .textinfo{
+.EditPet .textinfo{
 	margin-top: 40px;
 	padding-left: 20px;
 	padding-right: 20px;
@@ -107,7 +107,7 @@
     flex-direction: column;
 }
 
-.addpet .textinfo input, .addpet select{
+.EditPet .textinfo input, .EditPet select{
 	border-radius: 50px;
 	height: 50px;
 	padding: 10px 20px;
@@ -116,38 +116,38 @@
 	margin: 10px;
 }
 
-.addpet .textinfo input:focus,.addpet select:focus{
+.EditPet .EditPet .textinfo input:focus,.EditPet select:focus{
 	outline: none;
 	box-shadow: 0 0 0 3px rgb(88, 75, 65);;
 }
 
-.selectGender, .selectGender div {
+.EditPet .selectGender, .EditPet .selectGender div {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 }
 
-.selectGender {
+.EditPet .selectGender {
 	gap: 1rem;
 }
 
-.addpet input[type="date"]{
+.EditPet input[type="date"]{
 	font-family: 'Catamaran';
 	font-size: 17px;
 }
 
-.addpet #type{
+.EditPet #type{
 	font-family: 'Catamaran';
 	appearance: none;
 }
 
-.addpet #selectarrow{
+.EditPet #selectarrow{
 	font-size: 25px;
 	position: absolute;
 }
 
 
-.addpet .CancelAndSubmit{
+.EditPet .CancelAndSubmit{
 	margin-top: 20px ;
 	margin-bottom: 70px ;
 	display: flex;
@@ -155,7 +155,7 @@
 	justify-content: center;
 }
 
-.addpet .button{
+.EditPet .button{
 	margin: 5px;
 	font-size: 20px;
 	padding: 10px 30px;
@@ -163,40 +163,40 @@
 	cursor: pointer;
 }
 
-.addpet #cancel{
+.EditPet #cancel{
 	background-color: rgb(255, 255, 255);
 	border: solid  rgb(179, 179, 179);
 	color:   rgb(179, 179, 179);
 	transition: .3s;
 }
 
-.addpet #cancel:hover{
+.EditPet #cancel:hover{
 	background-color: rgb(179, 179, 179);
 	color: white;
 }
 
-.addpet #submit{
+.EditPet #submit{
 	background-color: rgb(255, 255, 255);
 	border: solid  rgb(117, 202, 199);
 	color:  rgb(117, 202, 199);
 }
 
-.addpet #submit:hover{
+.EditPet #submit:hover{
 	background-color: rgb(117, 202, 199);
 	color: white;
 	transition: .3s;
 }
 
-.addpet .navigate i {
+.EditPet .navigate i {
 	transition: all .2s ease-in-out;
 	color: rgb(88, 75, 65);
 }
 
-.addpet .navigate i:hover {
+.EditPet .navigate i:hover {
 	transform: scale(1.15);
 }
 
-.addpet .navigate {
+.EditPet .navigate {
 	padding: 20px;
 	overflow: hidden;
 	background-color: rgb(251, 211, 141);
@@ -210,32 +210,32 @@
 
 @media screen and (min-width: 680px) {
 
-	.addpet .back i {
+	.EditPet .back i {
 		margin-left: 60px;
 	}
 
-	.addpet form {
+	.EditPet form {
 		margin-left: 200px;
 		right: auto;
 		display: flex;
 		flex-direction: row;
 	}
-	.addpet .img-area {
+	.EditPet .img-area {
 		position: relative;
 		width: 400px;
 	}
 
-	.addpet .textinfo {
+	.EditPet .textinfo {
 		margin-left: 200px;
 		margin-top: 50px;
 		justify-content: end;
 	}
 
-	.addpet select {
+	.EditPet select {
 		width: 400px;
 	}
 
-	.addpet .CancelAndSubmit{
+	.EditPet .CancelAndSubmit{
 		max-width: 300px;
 		max-height: 60px;
 		display: flex;
@@ -245,7 +245,7 @@
 		margin-left: 200px;
 	}
 
-	.addpet .navigate {
+	.EditPet .navigate {
 		top: 0px;
 		height: 100%;
 		display: flex;
@@ -255,15 +255,15 @@
 		z-index: 750;
 	}
 
-	.addpet .navigate a:nth-child(1) {
+	.EditPet .navigate a:nth-child(1) {
 		order: 1;
 	}
 
-	.addpet .navigate a:nth-child(2){
+	.EditPet .navigate a:nth-child(2){
 		margin-top: 70px;
 	}
 
-	.addpet .navigate a {
+	.EditPet .navigate a {
 		padding: 15px;
 	}
 }

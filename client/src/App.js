@@ -11,6 +11,7 @@ import Register from "./pages/Register/Register"
 import EditUser from "./pages/EditUser/EditUser"
 import Articles from "./pages/Articles/Articles"
 import Calendar from "./pages/Calendar/Calendar"
+import EditPet from "./pages/EditPet/EditPet";
 
 
 
@@ -20,6 +21,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Pet />} />
         <Route path="/add-pet" element={<Addpet />} />
+        <Route path="/edit-pet" element={<EditPet />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/edit-user" element={<EditUser/>} />

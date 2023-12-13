@@ -6,6 +6,19 @@ import axios from 'axios';
 import { Link } from "react-router-dom";
 
 const Articles = () => {
+    const [articles, setArticles] = useState([]);
+
+    useEffect(() => {
+        const fetchAllArticles = async () => {
+            try {
+                const res = await axios.get("http://localhost:8800/articles");
+                setArticles(res.data);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+        fetchAllArticles();
+    }, []);
 
     return (
         <div className="Articles">
@@ -25,16 +38,18 @@ const Articles = () => {
                 </header>
 
                 <main>
-                    <div class="article">
-                        <h2>Article Title 1</h2>
-                        <img src="https://cdn.shopify.com/s/files/1/0531/2475/9744/files/1_2.jpg?v=1631104786" alt="Article 1 Image"/>
-                            <p>This is a brief summary of the article content.
-                                You can add more details hereYou can add more details hereYou can add more details hereYou can add more details
-                                hereYou can add more details hereYou can add more details hereYou can add more details hereYou can add more
-                                details hereYou can add more details hereYou can add more details hereYou can add more details hereYou can add
-                                more details hereYou can add more details heree details hereYou can add more details here.</p>
-                            <a href="article1.html" class="read-more">Read More</a>
-                    </div>
+                    {articles.map(article => (
+
+                        <div className="article" key={article.articleID}>
+                            {article.petType && <h2>{article.title}</h2>}
+                            <h2>Article Title 2</h2>
+                            <img src={article.articlePic} alt="" />
+                            {/* {article.id && <img src={pet.petPfp} alt="" />} */}
+                            <p>{article.description}</p>
+                            <Link to={`${article.articleLink}`} style={{ textDecoration: 'none' }}><a class="read-more">Read More</a></Link>
+                        </div>
+
+                    ))}
 
                     <div class="article">
                         <h2>Article Title 2</h2>
