@@ -1,11 +1,50 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './EditUser.css';
 import { Helmet } from 'react-helmet';
 import axios from 'axios';
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const EditUser = () => {
+    const [user, setUser] = useState({
+        fname: '',
+        lname: '',
+        email: '',
+        phone: ''
+    });
+
+    const navigate = useNavigate()
+    const location = useLocation()
+
+    const userId = location.pathname.split("/")[2]
+
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const response = await axios.get(`/api/users/${userId}`); // Replace with your API endpoint
+                setUser(response.data);
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+            }
+        };
+
+        fetchUserData();
+    }, [userId]);
+
+    const handleChange = (e) => {
+        setUser({ ...user, [e.target.name]: e.target.value });
+    };
+
+    const handleUpdateProfile = async (e) => {
+        e.preventDefault();
+
+        try {
+            await axios.put(`http://localhost:8000/users/${userId}`, user); // Replace with your API endpoint
+            navigate("/")
+        } catch (error) {
+            console.error(error);
+            // Handle error (e.g., show an error message)
+        }
+    };
 
     window.onload = function () {
         const inputFile = document.getElementById('file');
@@ -50,7 +89,7 @@ const EditUser = () => {
                 </div>
 
                 <main>
-                    <form action="">
+                    <form action="" onSubmit={handleUpdateProfile}>
                         <div class="container">
                             <div class="img-area" data-img="">
                                 <i class='bx bxs-cloud-upload icon'></i>
@@ -61,13 +100,13 @@ const EditUser = () => {
                         </div>
                         <div class="textinfo">
                             <label for="fName">First Name</label>
-                            <input id="fName" type="text" placeholder="Add your first name"/>
+                            <input id="fName" type="text" value={user.fname} onChange={handleChange} />
                             <label for="name">Last Name</label>
-                            <input id="lName" type="text" placeholder="Add your last name"/>
+                            <input id="lName" type="text" value={user.lname} onChange={handleChange} />
                             <label for="email">Email</label>
-                            <input id="email" type="text" placeholder="Add your email"/>
+                            <input id="email" type="text" value={user.email} onChange={handleChange} />
                             <label for="phone">Phone Number</label>
-                            <input id="phone" type="tel" placeholder="Add your phone number"/>
+                            <input id="phone" type="tel" value={user.phone} onChange={handleChange} />
                         </div>
 
                         <div class="CancelAndSubmit">
