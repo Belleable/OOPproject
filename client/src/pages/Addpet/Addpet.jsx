@@ -12,7 +12,7 @@ const Addpet = () => {
         const inputFile = document.getElementById('file');
         const imgArea = document.querySelector('.img-area');
 
-        inputFile.addEventListener('change', function () {
+        inputFile.addEventListener('change', function (e) {
             const image = this.files[0]
             if (image.size < 2000000) {
                 const reader = new FileReader();
@@ -31,9 +31,11 @@ const Addpet = () => {
                 alert("Image size more than 2MB");
             }
         })
+        
     }
     
     const [pet, setPet] = useState({
+        petPfp:"",
         petName: "",
         petType: "",
         petGender: "",
@@ -52,8 +54,9 @@ const Addpet = () => {
 
         e.preventDefault()
         try{
-            await axios.post("", pet) //ใส่หน้าในนี้ด้วยเด้อ
-            navigate("/")
+            // await axios.post("", pet) //ใส่หน้าในนี้ด้วยเด้อ
+            console.log(pet);
+            // navigate("/")
         }
         catch(err){console.error(err)}
     }
@@ -80,7 +83,7 @@ const Addpet = () => {
                         <h3>Upload Image</h3>
                         <p>Image size must be less than <span>2MB</span></p>
                     </div>
-                    <input type="file" id="file" accept="image/*" />
+                    <input type="file" id="file" accept="image/*" name="petPfp"/>
                 </div>
 
                 <div class="textinfo">
