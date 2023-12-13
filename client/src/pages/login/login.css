@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+.Login * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    color: rgb(109, 92, 75);
+}
+
+.Login body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background: linear-gradient(135deg, rgb(251, 211, 141), rgb(117, 202, 199));
+}
+
+.Login .box {
+    max-width: 700px;
+    width: 100%;
+    background-color: #fff;
+    padding: 25px 30px;
+    border-radius: 30px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+    height: 400px;
+}
+
+.Login form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.Login form>i {
+    /* width: 300px; */
+    margin: 10px 0;
+    grid-column: 1;
+    justify-self: center;
+    align-self: center;
+}
+
+.Login form>div {
+    margin-top: 70px;
+    display: flex;
+    flex-direction: column;
+}
+
+.Login .input-container {
+    position: relative;
+    margin-bottom: 25px;
+    grid-column: 2;
+}
+
+.Login .button,
+.Login .signup {
+    grid-column: 2;
+}
+
+.Login .input-container label {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    font-size: 16px;
+    color: rgb(78, 66, 53);
+    transition: all 0.5s ease-in-out;
+}
+
+.Login .input-container input {
+    border: 0;
+    border-bottom: 1px solid #555;
+    background: transparent;
+    width: 100%;
+    padding: 8px 0 5px 0;
+    font-size: 16px;
+    color: rgb(78, 66, 53);
+}
+
+.Login .input-container input:focus {
+    border: none;
+    outline: none;
+    border-bottom: 1px solid rgb(54, 148, 145);
+}
+
+.Login .input-container input:focus~label,
+.Login .input-container input:valid~label {
+    top: -12px;
+    font-size: 12px;
+
+}
+
+.Login .user-details .input-box input {
+    height: 45px;
+    width: 100%;
+    outline: none;
+    font-size: 16px;
+    border-radius: 13px;
+    padding-left: 15px;
+    border: 1px solid #ccc;
+    border-bottom-width: 2px;
+    transition: all 0.3s ease;
+}
+
+.Login .user-details .input-box input:focus,
+.Login .user-details .input-box input:valid {
+    border-color: rgb(117, 202, 199);
+}
+
+
+.Login #dot-1:checked~.category label .one,
+.Login #dot-2:checked~.category label .two,
+.Login #dot-3:checked~.category label .three {
+    background: rgb(117, 202, 199);
+    border-color: #d9d9d9;
+}
+
+.Login .button {
+    margin: 10px 0;
+    background-color: rgb(254, 234, 199);
+    border: 2px solid rgb(109, 92, 75);
+    border-radius: 30px;
+    box-shadow: rgb(109, 92, 75) 4px 4px 0 0;
+    color: rgb(109, 92, 75);
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 600;
+    font-size: 18px;
+    padding: 0 18px;
+    line-height: 50px;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.Login .button:hover {
+    background-color: #fff;
+}
+
+.Login .button:active {
+    box-shadow: rgb(109, 92, 75) 2px 2px 0 0;
+    transform: translate(2px, 2px);
+}
+
+.Login a {
+    text-decoration-line: underline;
+    color: rgb(54, 148, 145);
+    cursor: pointer;
+}
+
+@media (min-width: 768px) {
+    .Login .button {
+        min-width: 120px;
+        padding: 0 25px;
+    }
+}
+
+@media(max-width: 584px) {
+    .Login .box {
+        max-width: 90%;
+
+    }
+
+    .Login form .user-details .input-box {
+        margin-bottom: 15px;
+        width: 70%;
+    }
+
+    .Login form {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .Login form>i {
+        margin: 10px 0;
+    }
+
+    .Login form>div {
+        margin-top: 0;
+    }
+
+    .Login .input-container {
+        grid-column: 1;
+    }
+
+    .Login .button,
+    .Login .signup {
+        grid-column: 1;
+    }
+}

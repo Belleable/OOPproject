@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetInfo</title>
+    <link rel="stylesheet" href="stylepetinfo.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Catamaran:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/957263c2c4.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <div class="Info">
+        <img src="https://hips.hearstapps.com/hmg-prod/images/chow-chow-portrait-royalty-free-image-1652926953.jpg?crop=0.44455xw:1xh;center,top&resize=980:*">
+        <div class="text">
+            <h1>FuFu</h1>
+            <table>
+                <tr>
+                    <th>Type :</th>
+                    <td id="Type">Dog</td>
+                </tr>
+                <tr>
+                    <th>DoB :</th>
+                    <td id="DoB">11/12/2022</td>
+                </tr>
+                <tr>
+                    <th>Age :</th>
+                    <td id="Age">1 year</td>
+                </tr>
+            </table>
+        </div>
+        <a href="#"><i class="fa-solid fa-pen-to-square"></i></a>
+    </div>
+
+    <div class="vaccinelist">
+        
+        <div class="HeaderVacc">
+            <h2>Vaccination</h2>
+            <form action="">
+                <div class="select" onchange="filterTable()">
+                    <select id="status" >
+                        <option value="all">All</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Incomplete">Incomplete</option>
+                        <option value="ongoing">On going</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+
+        <table id="vaccine-table">
+            <tr>
+                <th>Vaccine</th>
+                <th>Status</th>
+            </tr>
+            <tr>
+                <td class="Completed" >V1</td>
+                <td>Completed</td>
+            </tr>
+            <tr>
+                <td class="Incomplete">V2</td>
+                <td>Incompleted</td>
+            </tr>
+            <tr>
+                <td class="ongoing">V3</td>
+                <td> next appointment is... </td>
+            </tr>
+        </table>
+
+        
+
+        <a href="#"><i class="fa-solid fa-book-medical fa-4x"></i></a>
+    </div>
+
+    <script src="./script.js"></script>
+
+    <nav class="navigate">
+        <a href="#"><i class="fa-solid fa-book-open fa-2x"></i></a>
+        <a href="#"><i class="fa-solid fa-house fa-2x"></i></a>
+        <a href="#"><i class="fa-regular fa-calendar-days fa-2x"></i></a>
+    </nav>
+</body>

@@ -1,0 +1,133 @@
+.Articles * {
+    margin: 0 0;
+    padding: 0 0;
+    box-sizing: border-box;
+}
+
+.Articles body {
+    background-color: rgb(247, 247, 247);
+    font-family: 'Catamaran';
+}
+
+.Articles header {
+    padding: 15px 20px;
+    margin: 0;
+    position: fixed;
+    height: auto;
+    width: 100%;
+    background-color: rgb(117, 202, 199);
+    height: 80px;
+    color: rgb(14, 73, 78);
+    align-items: center;
+}
+
+.Articles main {
+    padding-top: 90px;
+    padding-bottom: 75px;
+    margin: 0 20px;
+    background-color: #f4f4f4;
+}
+
+.Articles .article {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 10px;
+}
+
+.Articles img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+.Articles .read-more {
+    display: inline-block;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    border: solid rgb(117, 202, 199);
+    background-color: #ffffff;
+    color: rgb(117, 202, 199);
+    padding: 8px 16px;
+    margin-right: auto;
+    text-decoration: none;
+    border-radius: 30px;
+}
+
+.Articles .read-more:hover {
+    background-color: rgb(117, 202, 199);
+    color: #fff;
+}
+
+.Articles .read-more:active {
+    background-color: rgb(88, 75, 65);
+    border-color: rgb(88, 75, 65);
+}
+
+@media (min-width: 700px) {
+    .Articles img {
+        max-width: 80%;
+        height: auto;
+        border-radius: 8px;
+        margin: 10px 0;
+        display: inline-block;
+    }
+}
+
+@media (min-width: 1000px) {
+    .Articles .article {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto(3);
+        align-items: center;
+    }
+
+    .Articles img {
+        justify-self: start;
+        grid-column: 1 / 2;
+        grid-row: 1 / 4;
+    }
+
+    .Articles h2 {
+        grid-column: 2 / 3;
+        grid-row: 1 / 2;
+        align-self: flex-start;
+        margin-top: 11px;
+    }
+
+    .Articles p {
+        grid-column: 2 / 3;
+        grid-row: 2 / 3;
+        align-self: flex-start;
+    }
+
+    .Articles .read-more {
+        grid-column: 2 / 3;
+        grid-row: 3 / 4;
+    }
+}
+
+.Articles .navigate i {
+    transition: all .2s ease-in-out;
+    color: rgb(88, 75, 65);
+}
+
+.Articles .navigate i:hover {
+    transform: scale(1.15);
+}
+
+.Articles .navigate {
+    padding: 20px;
+    overflow: hidden;
+    background-color: rgb(251, 211, 141);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    text-align: center;
+}

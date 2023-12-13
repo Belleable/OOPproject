@@ -1,0 +1,119 @@
+*{
+    margin: 0 0;
+    padding: 0 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: rgb(247, 247, 247);
+    font-family: 'Catamaran';
+}
+
+header{
+    padding: 15px 20px;
+    margin: 0;
+    position: fixed;
+    height: 80px;
+    width: 100%;
+    background-color: rgb(117, 202, 199);
+    color: rgb(14, 73, 78);
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    z-index: 1000;
+}
+
+.back i {
+    color: rgb(40, 123, 120);
+    cursor: pointer;
+}
+
+.back i:active {
+    color: rgb(162, 230, 227);
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    padding-top: 90px;
+    padding-bottom: 85px;
+}
+
+.record{
+    background-color:rgb(255, 227, 179);
+    margin: 10px;
+    padding: 30px;
+    border-radius: 10px;
+    color: rgb(88, 75, 65);
+}
+
+
+.navigate i{
+    transition: all .2s ease-in-out; 
+    color: rgb(88, 75, 65);
+}
+
+.navigate i:hover{
+    transform: scale(1.15); 
+}
+
+.navigate{
+    padding: 20px;
+    overflow: hidden;
+    background-color:  rgb(251, 211, 141);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr ;
+    text-align: center;
+}
+
+
+
+@media screen and (min-width: 628px) { 
+
+    .navigate{
+        top: 70px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        flex-direction:column ;
+        width: 60px;
+        z-index: 750;
+    }
+
+    .navigate a:nth-child(1){
+        order: 1;
+    }
+
+    .navigate a{
+        padding: 15px;
+    }
+
+    main{
+        padding-bottom: 10px;
+        padding-left: 70px;
+        padding-right: 10px;
+        flex-direction: row;
+        flex-wrap: wrap; 
+    }
+    
+    .record{
+        flex : 40%;
+    }
+}
+
+@media screen and (min-width: 1024px) { 
+    .record{
+        flex : 33.33%;
+    }
+}
+
+@media screen and (min-width: 1280px) { 
+    .record{
+        flex : 20%;
+    }
+}
+

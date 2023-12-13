@@ -1,0 +1,180 @@
+*{
+    margin: 0 0;
+    padding: 0 0;
+    box-sizing: border-box;
+
+}
+
+body{
+    background-color: #f4f4f4;
+
+    padding-bottom: 80px ; 
+    font-family: 'Catamaran';
+}
+
+.Info{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background-color: rgb(117, 202, 199);
+    height: 250px;
+    align-items: center;
+    position: relative;
+}
+
+img{
+    height: 210px;
+    border-radius: 50%;
+    object-fit: cover;
+    aspect-ratio: 1/1;
+    margin: 0 auto;
+}
+
+.text{
+    padding-left: 20px;
+    margin-top: -10px ;
+    color: rgb(14, 73, 78);
+}
+
+.text h1{
+    font-weight: 700;
+    font-size: 35px;
+}
+
+.text table{
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.Info a{
+    position: absolute;
+    font-size: 40px;
+    bottom: 10px;
+    right: 20px;
+    color: rgb(73, 61, 51);
+}
+
+.vaccinelist{
+    padding: 20px;
+}
+
+.HeaderVacc{
+    padding-left: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h2{
+    font-size: 35px;
+}
+
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: none;
+    border: none;
+}
+
+.select {
+    margin: 1rem;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50px;
+}
+
+select {
+    color:rgb(0, 0, 0);
+    width: 140px;
+    height: 3.2rem;
+    cursor: pointer;
+    padding: 1rem;
+}
+
+.select::after {
+    content: "\25BC";
+    position: absolute;
+    background: rgb(251, 211, 141);
+    top: 0;
+    right: 0;
+    padding: 1rem;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.select:hover::after {
+    background: white;
+    color: rgb(88, 75, 65);
+}
+
+.vaccinelist table {
+    width: 100%;
+    margin-top: 10px;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+    overflow: hidden;
+    font-size: 20px;
+}
+
+.vaccinelist td:nth-child(1){
+    padding: 0 35px;
+    -webkit-border-top-left-radius: 10px;
+    -webkit-border-bottom-left-radius: 10px;
+    text-align: center;
+    background-color: white
+
+}
+
+.vaccinelist td:nth-child(2) {
+    padding: 12px;
+    -webkit-border-top-right-radius: 10px;
+    -webkit-border-bottom-right-radius: 10px;
+    background-color: white;
+
+}
+
+th{
+    display: none;
+}
+
+.Completed{
+    border-left: 10px solid rgb(132, 183, 238);
+}
+
+.Incomplete{
+    border-left: 10px solid rgb(247, 150, 166);
+}
+
+.ongoing{
+    border-left: 10px solid rgb(251, 225, 138);
+}
+
+
+.vaccinelist a{
+    position: fixed;
+    bottom: 90px;
+    left: auto;
+    right: 25px;
+    color:  rgb(127, 109, 94);
+}
+
+.navigate i{
+    transition: all .2s ease-in-out; 
+    color: rgb(88, 75, 65);
+}
+
+.navigate i:hover{
+    transform: scale(1.15); 
+}
+
+.navigate{
+    padding: 20px;
+    overflow: hidden;
+    background-color:  rgb(251, 211, 141);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr ;
+    text-align: center;
+}
