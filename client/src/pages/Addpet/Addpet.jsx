@@ -54,9 +54,8 @@ const Addpet = () => {
 
         e.preventDefault()
         try{
-            // await axios.post("", pet) //ใส่หน้าในนี้ด้วยเด้อ
-            console.log(pet);
-            // navigate("/")
+            await axios.post("", pet) //ใส่หน้าในนี้ด้วยเด้อ
+            navigate("/")
         }
         catch(err){console.error(err)}
     }
