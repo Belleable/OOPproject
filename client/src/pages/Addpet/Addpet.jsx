@@ -3,9 +3,11 @@ import { useState } from 'react';
 import '../Addpet/styleaddpet.css';
 import { Helmet } from 'react-helmet';
 import axios from 'axios';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Addpet = () => {
+    const navigate = useNavigate()
+
     window.onload = function () {
         const inputFile = document.getElementById('file');
         const imgArea = document.querySelector('.img-area');
@@ -31,9 +33,30 @@ const Addpet = () => {
         })
     }
     
-    const [pets, setPet] = useState({
-
+    const [pet, setPet] = useState({
+        petName: "",
+        petType: "",
+        petGender: "",
+        petDoB:""
     });
+
+    const handleChange = (e) => {
+        setPet((prev) => ({ ...prev, [e.target.name]: e.target.value}))
+    }
+
+    const handleClick = async e => {
+        if (!pet.petName || !pet.petType || !pet.petGender || !pet.petDoB) {
+            alert("Please fill in all required fields");
+            return;
+        }
+
+        e.preventDefault()
+        try{
+            await axios.post("", pet) //ใส่หน้าในนี้ด้วยเด้อ
+            navigate("/")
+        }
+        catch(err){console.error(err)}
+    }
 
     return (
         <div className='addpet'>
@@ -62,18 +85,29 @@ const Addpet = () => {
 
                 <div class="textinfo">
                     <label for="name">Name</label>
-                    <input id="name" type="text" placeholder="Name" />
+                    <input id="name" type="text" placeholder="Name" name="petName" onChange={handleChange} />
                     <label for="type">Type</label>
-                    <select id="type" name="type">
+                    <select id="type" name="petType" onChange={handleChange}>
                         <option value="Cat">Cat</option>
                         <option value="Dog">Dog</option>
                         <option value="Rabbit">Rabbit</option>
                     </select>
+                    <p>Gender</p>
+                    <div class="selectGender">
+                        <div>
+                            <input id="male" type="radio" value="Male" name="petGender" onChange={handleChange}/>
+                            <label for="male">Male</label>
+                        </div>
+                        <div>
+                            <input id="female" type="radio" value="Female" name="petGender" onChange={handleChange}/>
+                            <label for="female">Female</label>
+                        </div>
+                    </div>
                     <label for="DoB">Birthday:</label>
-                    <input id="DoB" type="date" name="birthday"/>
+                    <input id="DoB" type="date" name="petDoB" onChange={handleChange}/>
                     <div class="CancelAndSubmit">
                         <button id="cancel" class="button">Cancel</button>
-                        <button id="submit" class="button" type="submit" name="submit">Submit</button>
+                        <button id="submit" class="button" type="submit" name="submit" onClick={handleClick}>Submit</button>
                     </div>
                 </div>
             </form>
