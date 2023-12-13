@@ -6,6 +6,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const EditUser = () => {
     const [user, setUser] = useState({
+        pfp: '',
         fname: '',
         lname: '',
         email: '',
@@ -96,7 +97,7 @@ const EditUser = () => {
                                 <h3>Upload Image</h3>
                                 <p>Image size must be less than <span>2MB</span></p>
                             </div>
-                            <input type="file" id="file" accept="image/*"/>
+                            <input type="file" id="file" accept="image/*" value={user.pfp} />
                         </div>
                         <div class="textinfo">
                             <label for="fName">First Name</label>
