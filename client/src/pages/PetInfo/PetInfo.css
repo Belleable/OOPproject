@@ -1,18 +1,18 @@
-*{
+.petInfo * {
     margin: 0 0;
     padding: 0 0;
     box-sizing: border-box;
 
 }
 
-body{
+.petInfo body {
     background-color: #f4f4f4;
 
-    padding-bottom: 80px ; 
+    padding-bottom: 80px;
     font-family: 'Catamaran';
 }
 
-.Info{
+.Info {
     display: grid;
     grid-template-columns: 1fr 1fr;
     background-color: rgb(117, 202, 199);
@@ -21,7 +21,7 @@ body{
     position: relative;
 }
 
-img{
+.petInfo img {
     height: 210px;
     border-radius: 50%;
     object-fit: cover;
@@ -29,23 +29,23 @@ img{
     margin: 0 auto;
 }
 
-.text{
+.petInfo .text {
     padding-left: 20px;
-    margin-top: -10px ;
+    margin-top: -10px;
     color: rgb(14, 73, 78);
 }
 
-.text h1{
+.petInfo .text h1 {
     font-weight: 700;
     font-size: 35px;
 }
 
-.text table{
+.petInfo .text table {
     font-size: 20px;
     font-weight: 600;
 }
 
-.Info a{
+.Info a {
     position: absolute;
     font-size: 40px;
     bottom: 10px;
@@ -53,22 +53,22 @@ img{
     color: rgb(73, 61, 51);
 }
 
-.vaccinelist{
+.vaccinelist {
     padding: 20px;
 }
 
-.HeaderVacc{
+.HeaderVacc {
     padding-left: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-h2{
+.petInfo h2 {
     font-size: 35px;
 }
 
-select {
+.petInfo select {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -76,22 +76,22 @@ select {
     border: none;
 }
 
-.select {
+.petInfo .select {
     margin: 1rem;
     position: relative;
     overflow: hidden;
     border-radius: 50px;
 }
 
-select {
-    color:rgb(0, 0, 0);
+.petInfo select {
+    color: rgb(0, 0, 0);
     width: 140px;
     height: 3.2rem;
     cursor: pointer;
     padding: 1rem;
 }
 
-.select::after {
+.petInfo .select::after {
     content: "\25BC";
     position: absolute;
     background: rgb(251, 211, 141);
@@ -102,7 +102,7 @@ select {
     transition: all 0.3s ease;
 }
 
-.select:hover::after {
+.petInfo .select:hover::after {
     background: white;
     color: rgb(88, 75, 65);
 }
@@ -117,7 +117,7 @@ select {
     margin-bottom: 60px;
 }
 
-.vaccinelist td:nth-child(1){
+.vaccinelist td:nth-child(1) {
     padding: 0 30px;
     -webkit-border-top-left-radius: 10px;
     -webkit-border-bottom-left-radius: 10px;
@@ -133,6 +133,7 @@ select {
     text-align: center;
     background-color: white;
 }
+
 .vaccinelist td:nth-child(3) {
     padding-left: 40px;
     -webkit-border-top-right-radius: 10px;
@@ -141,48 +142,48 @@ select {
 
 }
 
-th{
+.petInfo th {
     display: none;
 }
 
-.Completed{
+.Completed {
     border-left: 10px solid rgb(132, 183, 238);
 }
 
-.Incomplete{
+.Incomplete {
     border-left: 10px solid rgb(247, 150, 166);
 }
 
-.ongoing{
+.ongoing {
     border-left: 10px solid rgb(251, 225, 138);
 }
 
 
-.vaccinelist a{
+.vaccinelist a {
     position: fixed;
     bottom: 90px;
     left: auto;
     right: 25px;
-    color:  rgb(127, 109, 94);
+    color: rgb(127, 109, 94);
 }
 
-.navigate i{
-    transition: all .2s ease-in-out; 
+.petInfo .navigate i {
+    transition: all .2s ease-in-out;
     color: rgb(88, 75, 65);
 }
 
-.navigate i:hover{
-    transform: scale(1.15); 
+.petInfo .navigate i:hover {
+    transform: scale(1.15);
 }
 
-.navigate{
+.petInfo .navigate {
     padding: 20px;
     overflow: hidden;
-    background-color:  rgb(251, 211, 141);
+    background-color: rgb(251, 211, 141);
     position: fixed;
     bottom: 0;
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr ;
+    grid-template-columns: 1fr 1fr 1fr;
     text-align: center;
 }

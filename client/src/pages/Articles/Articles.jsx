@@ -44,7 +44,6 @@ const Articles = () => {
                             {article.petType && <h2>{article.title}</h2>}
                             <h2>Article Title 2</h2>
                             <img src={article.articlePic} alt="" />
-                            {/* {article.id && <img src={pet.petPfp} alt="" />} */}
                             <p>{article.description}</p>
                             <Link to={`${article.articleLink}`} style={{ textDecoration: 'none' }}><a class="read-more">Read More</a></Link>
                         </div>
@@ -60,9 +59,9 @@ const Articles = () => {
                 </main>
 
                 <nav class="navigate">
-                    <a href="#"><i class="fa-solid fa-book-open fa-2x"></i></a>
-                    <a href="#"><i class="fa-solid fa-house fa-2x"></i></a>
-                    <a href="#"><i class="fa-regular fa-calendar-days fa-2x"></i></a>
+                    <Link to="/articles"><a href="#"><i class="fa-solid fa-book-open fa-2x"></i></a></Link>
+                    <Link to="/"><a href="#"><i class="fa-solid fa-house fa-2x"></i></a></Link>
+                    <Link to="/calendar"><a href="#"><i class="fa-regular fa-calendar-days fa-2x"></i></a></Link>
                 </nav>
             </body>
 

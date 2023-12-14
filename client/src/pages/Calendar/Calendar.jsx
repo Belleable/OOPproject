@@ -435,9 +435,9 @@ const Calendar = () => {
                     <script src="calendar.js"></script>
 
                     <nav class="navigate">
-                        <a href="#"><i class="fa-solid fa-book-open fa-2x"></i></a>
-                        <a href="#"><i class="fa-solid fa-house fa-2x"></i></a>
-                        <a href="#"><i class="fa-regular fa-calendar-days fa-2x"></i></a>
+                        <Link to="/articles"><a href="#"><i class="fa-solid fa-book-open fa-2x"></i></a></Link>
+                        <Link to="/"><a href="#"><i class="fa-solid fa-house fa-2x"></i></a></Link>
+                        <Link to="/calendar"><a href="#"><i class="fa-regular fa-calendar-days fa-2x"></i></a></Link>
                     </nav>
 
             </body>

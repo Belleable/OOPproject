@@ -12,6 +12,9 @@ import EditUser from "./pages/EditUser/EditUser"
 import Articles from "./pages/Articles/Articles"
 import Calendar from "./pages/Calendar/Calendar"
 import EditPet from "./pages/EditPet/EditPet";
+import Records from "./pages/Record/Record";
+import PetInfo from "./pages/PetInfo/PetInfo";
+import UserProfile from "./pages/userprof/Profile"
 
 
 
@@ -27,6 +30,9 @@ function App() {
         <Route path="/edit-user" element={<EditUser/>} />
         <Route path="/calendar" element={<Calendar />} />
         <Route path="/articles" element={<Articles />} />
+        <Route path="/pet-records" element={<Records/>}/>
+        <Route path="/pet-info" element={<PetInfo />} />
+        <Route path="/profile" element={<UserProfile />} />
       </Routes>
     </BrowserRouter>
   );

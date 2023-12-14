@@ -1,16 +1,15 @@
-*{
+.Records * {
     margin: 0 0;
     padding: 0 0;
     box-sizing: border-box;
 }
 
-body{
+.Records body {
     background-color: rgb(247, 247, 247);
     font-family: 'Catamaran';
-    width: 100%;
 }
 
-header{
+.Records header {
     padding: 15px 20px;
     margin: 0;
     position: fixed;
@@ -25,81 +24,80 @@ header{
     z-index: 1000;
 }
 
-.back i {
+.Records .back i {
     color: rgb(40, 123, 120);
     cursor: pointer;
 }
 
-.back i:active {
+.Records .back i:active {
     color: rgb(162, 230, 227);
 }
 
-main{
-    display: flex;
-    flex-direction: column;
+.Records main {
+    margin: 5px 5px;
     padding-top: 90px;
     padding-bottom: 85px;
-    width: 100%;
+    
 }
 
-.record{
-    box-sizing: border-box;
-    background-color:rgb(255, 227, 179);
+.Records .record {
+    background-color: rgb(255, 227, 179);
     margin: 10px;
     padding: 30px;
     border-radius: 10px;
-    width: 100%;
-    color: rgb(88, 75, 65);
-    display: block;
-}
-
-
-.navigate i{
-    transition: all .2s ease-in-out; 
     color: rgb(88, 75, 65);
 }
 
-.navigate i:hover{
-    transform: scale(1.15); 
+
+.Records .navigate i {
+    transition: all .2s ease-in-out;
+    color: rgb(88, 75, 65);
 }
 
-.navigate{
+.Records .navigate i:hover {
+    transform: scale(1.15);
+}
+
+.Records .navigate {
     padding: 20px;
     overflow: hidden;
-    background-color:  rgb(251, 211, 141);
+    background-color: rgb(251, 211, 141);
+    position: fixed;
     bottom: 0;
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr ;
+    grid-template-columns: 1fr 1fr 1fr;
     text-align: center;
 }
 
 
 
-@media screen and (min-width: 628px) { 
+@media screen and (min-width: 628px) {
 
-    .navigate{
+    .Records .navigate {
         top: 70px;
         height: 100%;
         display: flex;
         align-items: center;
-        flex-direction:column ;
+        flex-direction: column;
         width: 60px;
         z-index: 750;
     }
 
-    .navigate a:nth-child(1){
+    .Records .navigate a:nth-child(1) {
         order: 1;
     }
 
-    .navigate a{
+    .Records .navigate a {
         padding: 15px;
     }
 
-    main{
+    .Records main {
         padding-bottom: 10px;
         padding-left: 70px;
         padding-right: 10px;
+        flex-direction: row;
+        flex-wrap: wrap;
     }
-    
+
 }

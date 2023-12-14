@@ -12,7 +12,7 @@ const Addpet = () => {
         const inputFile = document.getElementById('file');
         const imgArea = document.querySelector('.img-area');
 
-        inputFile.addEventListener('change', function () {
+        inputFile.addEventListener('change', function (e) {
             const image = this.files[0]
             if (image.size < 2000000) {
                 const reader = new FileReader();
@@ -31,9 +31,11 @@ const Addpet = () => {
                 alert("Image size more than 2MB");
             }
         })
+        
     }
     
     const [pet, setPet] = useState({
+        petPfp:"",
         petName: "",
         petType: "",
         petGender: "",
@@ -80,7 +82,7 @@ const Addpet = () => {
                         <h3>Upload Image</h3>
                         <p>Image size must be less than <span>2MB</span></p>
                     </div>
-                    <input type="file" id="file" accept="image/*" />
+                    <input type="file" id="file" accept="image/*" name="petPfp"/>
                 </div>
 
                 <div class="textinfo">
@@ -114,9 +116,9 @@ const Addpet = () => {
         </main>
 
         <nav class="navigate">
-            <a href="#"><i class="fa-solid fa-book-open fa-2x"></i></a>
-            <a href="#"><i class="fa-solid fa-house fa-2x"></i></a>
-            <a href="#"><i class="fa-regular fa-calendar-days fa-2x"></i></a>
+            <Link to="/articles"><a href="#"><i class="fa-solid fa-book-open fa-2x"></i></a></Link>
+            <Link to="/"><a href="#"><i class="fa-solid fa-house fa-2x"></i></a></Link>
+            <Link to="/calendar"><a href="#"><i class="fa-regular fa-calendar-days fa-2x"></i></a></Link>
         </nav>
         </div>
     )

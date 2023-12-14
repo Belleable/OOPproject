@@ -7,6 +7,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const EditPet = () => {
     const [pet, setPet] = useState({
+        petPfp: "",
         petName: "",
         petType: "",
         petGender: "",
@@ -94,7 +95,7 @@ const EditPet = () => {
                             <h3>Upload Image</h3>
                             <p>Image size must be less than <span>2MB</span></p>
                         </div>
-                        <input type="file" id="file" accept="image/*" />
+                        <input type="file" id="file" accept="image/*" value={pet.petPfp} />
                     </div>
 
                     <div class="textinfo">
@@ -128,9 +129,9 @@ const EditPet = () => {
             </main>
 
             <nav class="navigate">
-                <a href="#"><i class="fa-solid fa-book-open fa-2x"></i></a>
-                <a href="#"><i class="fa-solid fa-house fa-2x"></i></a>
-                <a href="#"><i class="fa-regular fa-calendar-days fa-2x"></i></a>
+                <Link to="/articles"><a href="#"><i class="fa-solid fa-book-open fa-2x"></i></a></Link>
+                <Link to="/"><a href="#"><i class="fa-solid fa-house fa-2x"></i></a></Link>
+                <Link to="/calendar"><a href="#"><i class="fa-regular fa-calendar-days fa-2x"></i></a></Link>
             </nav>
         </div>
     )

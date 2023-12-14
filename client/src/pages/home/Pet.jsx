@@ -67,9 +67,9 @@ const Pet = () => {
                 </div>
             </main>
             <nav className="navigate">
-                <a href="#"><Link to="/home"><i className="fa-solid fa-book-open fa-2x"></i></Link></a>
-                <a href="#"><i className="fa-solid fa-house fa-2x"></i></a>
-                <a href="#"><i className="fa-regular fa-calendar-days fa-2x"></i></a>
+                <Link to="/articles"><a href="#"><i class="fa-solid fa-book-open fa-2x"></i></a></Link>
+                <Link to="/"><a href="#"><i class="fa-solid fa-house fa-2x"></i></a></Link>
+                <Link to="/calendar"><a href="#"><i class="fa-regular fa-calendar-days fa-2x"></i></a></Link>
             </nav>
         </div>
     )
