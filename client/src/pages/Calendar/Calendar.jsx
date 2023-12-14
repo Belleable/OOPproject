@@ -1,448 +1,185 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
-import './Calendar.css';
-import { Helmet } from 'react-helmet';
+import dayjs from "dayjs";
+import React, { useState, useEffect } from "react";
+import { generateDate, months } from "./util/calendar";
+import cn from "./util/cn";
+import { GrFormNext, GrFormPrevious } from "react-icons/gr";
+import "./Calendar.css"
 import axios from 'axios';
-import { Link } from "react-router-dom";
-import $ from 'jquery';
 
-const Calendar = () => {
+export default function Calendar() {
+    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat'];
+    const currentDate = dayjs();
+    const [today, setToday] = useState(currentDate);
+    const [selectDate, setSelectDate] = useState(currentDate);
+    const [selectedEvent, setSelectedEvent] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
-    // Setup the calendar with the current date
-    $(document).ready(function () {
-        var date = new Date();
-        var today = date.getDate();
-        $(".right-button").click({ date: date }, next_year);
-        $(".left-button").click({ date: date }, prev_year);
-        $(".month").click({ date: date }, month_click);
-        $(".months-row").children().eq(date.getMonth()).addClass("active-month");
-        init_calendar(date);
-        var events = check_events(today, date.getMonth() + 1, date.getFullYear());
-        show_events(events, months[date.getMonth()], today);
+    const [appoint, setAppoint] = useState({
+        appID: '',
+        procName: '',
+        petName: '',
+        petID: '',
+        date: ''
     });
 
-    function moveCard(event) {
-        if ($(event.target).closest(".event-card").length) {
-            event.preventDefault();
-            // Translate the event card on right-click
-            $(this).css("transform", "translateX(-70px)");
-
-            // Add a click event listener to detect clicks outside the event card, event container, and event editor
-            $(document).on("click.eventCard", function (clickEvent) {
-                if (
-                    !$(clickEvent.target).closest(".event-container").length &&
-                    !$(clickEvent.target).closest(".event-card").length &&
-                    !$(clickEvent.target).closest(".event-editor").length
-                ) {
-                    // Reset the translation and remove the click event listener
-                    $(".event-card").css("transform", "translateX(0)");
-                    $(document).off("click.eventCard");
-                }
-            })
-        };
-    }
-
-    // Initialize the calendar by appending the HTML dates
-    function init_calendar(date) {
-        $(".tbody").empty();
-        $(".events-container").empty();
-        var calendar_days = $(".tbody");
-        var month = date.getMonth();
-        var year = date.getFullYear();
-        var day_count = days_in_month(month, year);
-        var row = $("<tr class='table-row'></tr>");
-        var today = date.getDate();
-        // Set date to 1 to find the first day of the month
-        date.setDate(1);
-        var first_day = date.getDay();
-        // 35+firstDay is the number of date elements to be added to the dates table
-        // 35 is from (7 days in a week) * (up to 5 rows of dates in a month)
-        for (var i = 0; i < 35 + first_day; i++) {
-            // Since some of the elements will be blank, 
-            // need to calculate actual date from index
-            var day = i - first_day + 1;
-            // If it is a sunday, make a new row
-            if (i % 7 === 0) {
-                calendar_days.append(row);
-                row = $("<tr class='table-row'></tr>");
-            }
-            // if current index isn't a day in this month, make it blank
-            if (i < first_day || day > day_count) {
-                var curr_date = $("<td class='table-date nil'>" + "</td>");
-                row.append(curr_date);
-            }
-            else {
-                var curr_date = $("<td class='table-date'>" + day + "</td>");
-                var events = check_events(day, month + 1, year);
-                if (today === day && $(".active-date").length === 0) {
-                    curr_date.addClass("active-date");
-                    show_events(events, months[month], day);
-                }
-                // If this date has any events, style it with .event-date
-                if (events.length !== 0) {
-                    curr_date.addClass("event-date");
-                }
-                // Set onClick handler for clicking a date
-                curr_date.click({ events: events, month: months[month], day: day }, date_click);
-                row.append(curr_date);
-            }
-        }
-        // Append the last row and set the current year
-        calendar_days.append(row);
-        $(".year").text(year);
-    }
-
-    // Get the number of days in a given month/year
-    function days_in_month(month, year) {
-        var monthStart = new Date(year, month, 1);
-        var monthEnd = new Date(year, month + 1, 1);
-        return (monthEnd - monthStart) / (1000 * 60 * 60 * 24);
-    }
-
-    // Event handler for when a date is clicked
-    function date_click(event) {
-        $(".events-container").show(250);
-        $("#dialog").hide(250);
-        $(".active-date").removeClass("active-date");
-        $(this).addClass("active-date");
-        show_events(event.data.events, event.data.month, event.data.day);
+    const openModal = () => {
+        setIsModalOpen(true);
     };
 
-    // Event handler for when a month is clicked
-    function month_click(event) {
-        $(".events-container").show(250);
-        $("#dialog").hide(250);
-        var date = event.data.date;
-        $(".active-month").removeClass("active-month");
-        $(this).addClass("active-month");
-        var new_month = $(".month").index(this);
-        date.setMonth(new_month);
-        init_calendar(date);
-    }
-
-    // Event handler for when the year right-button is clicked
-    function next_year(event) {
-        $("#dialog").hide(250);
-        var date = event.data.date;
-        var new_year = date.getFullYear() + 1;
-        $("year").html(new_year);
-        date.setFullYear(new_year);
-        init_calendar(date);
-    }
-
-    // Event handler for when the year left-button is clicked
-    function prev_year(event) {
-        $("#dialog").hide(250);
-        var date = event.data.date;
-        var new_year = date.getFullYear() - 1;
-        $("year").html(new_year);
-        date.setFullYear(new_year);
-        init_calendar(date);
-    }
-
-    // Event handler for clicking the new event button
-    function edit_event(event) {
-        if ($(event.target).closest(".event-editor").length) {
-            // if a date isn't selected then do nothing
-            if ($(".active-date").length === 0)
-                return;
-            // remove red error input on click
-            $("input").click(function () {
-                $(this).removeClass("error-input");
-            })
-            // empty inputs and hide events
-            $("#dialog input[type=text]").val('');
-            $("#dialog input[type=number]").val('');
-            $(".events-container").hide(250);
-            $("#dialog").show(250);
-            // Event handler for cancel button
-            $("#cancel-button").click(function () {
-                $("#name").removeClass("error-input");
-                $("#count").removeClass("error-input");
-                $("#dialog").hide(250);
-                $(".events-container").show(250);
-            });
-            // Event handler for ok button
-            $("#ok-button").unbind().click({ date: event.data.date }, function () {
-                var date = event.data.date;
-                var name = $("#name").val().trim();
-                var count = parseInt($("#count").val().trim());
-                var day = parseInt($(".active-date").html());
-                // Basic form validation
-                if (name.length === 0) {
-                    $("#name").addClass("error-input");
-                }
-                else if (isNaN(count)) {
-                    $("#count").addClass("error-input");
-                }
-                else {
-                    $("#dialog").hide(250);
-                    console.log("new event");
-                    new_event_json(name, count, date, day);
-                    date.setDate(day);
-                    init_calendar(date);
-                }
-            });
-        }
-    }
-
-    // Adds a json event to event_data
-    function new_event_json(name, count, date, day) {
-        var event = {
-            "occasion": name,
-            "invited_count": count,
-            "year": date.getFullYear(),
-            "month": date.getMonth() + 1,
-            "day": day
-        };
-        event_data["events"].push(event);
-    }
-
-    // Display all events of the selected date in card views
-    function show_events(events, month, day) {
-        // Clear the dates container
-        $(".events-container").empty();
-        $(".events-container").show(250);
-        console.log(event_data["events"]);
-        // If there are no events for this date, notify the user
-        if (events.length === 0) {
-            let event_card = $("<div class='event-card'></div>");
-            let event_name = $("<div class='event-name'>There are no events planned for " + month + " " + day + ".</div>");
-            $(event_card).css({ "border-left": "10px solid #FF1744" });
-            $(event_card).append(event_name);
-            $(".events-container").append(event_card);
-            $(document).off("contextmenu", ".event-card", moveCard);
-        }
-        else {
-            // Go through and add each event as a card to the events container
-            for (var i = 0; i < events.length; i++) {
-                let event_card = $("<div class='event-card'></div>");
-                let event_name = $("<div class='event-name'>" + events[i]["occasion"] + ":</div>");
-                let event_count = $("<div class='event-count'>" + events[i]["invited_count"] + " Invited</div>");
-                let event_check = $("<div class='checkbox-wrapper-31'><input type='checkbox' /><svg viewBox='0 0 35.6 35.6'><circle class='background' cx='17.8' cy='17.8' r='17.8'></circle><circle class='stroke' cx='17.8' cy='17.8' r='14.37'></circle><polyline class='check' points='11.78 18.12 15.55 22.23 25.17 12.87'></polyline></svg></div>");
-                let event_editor = $("<div class='editor-container'><div class='event-editor'></div></div>")
-
-                event_editor.find(".event-editor").click({ date: events[i]["date"] }, edit_event);
-
-                if (events[i]["cancelled"] === true) {
-                    $(event_card).css({
-                        "border-left": "10px solid #FF1744"
-                    });
-                    event_count = $("<div class='event-cancelled'>Cancelled</div>");
-                }
-                $(event_card).append(event_name).append(event_count).append(event_check);
-                $(".events-container").append(event_card).append(event_editor);
-                $(document).on("contextmenu", ".event-card", moveCard);
-            }
-        }
-    }
-
-    // Checks if a specific date has any events
-    function check_events(day, month, year) {
-        var events = [];
-        for (var i = 0; i < event_data["events"].length; i++) {
-            var event = event_data["events"][i];
-            if (event["day"] === day &&
-                event["month"] === month &&
-                event["year"] === year) {
-                events.push(event);
-            }
-        }
-        return events;
-    }
-
-    // Given data for events in JSON format
-    var event_data = {
-        "events": [
-            {
-                "occasion": " Repeated Test Event ",
-                "invited_count": 120,
-                "year": 2017,
-                "month": 5,
-                "day": 10,
-                "cancelled": true
-            },
-            {
-                "occasion": " Repeated Test Event ",
-                "invited_count": 120,
-                "year": 2017,
-                "month": 5,
-                "day": 10,
-                "cancelled": true
-            },
-            {
-                "occasion": " Repeated Test Event ",
-                "invited_count": 120,
-                "year": 2017,
-                "month": 5,
-                "day": 10,
-                "cancelled": true
-            },
-            {
-                "occasion": " Repeated Test Event ",
-                "invited_count": 120,
-                "year": 2017,
-                "month": 5,
-                "day": 10
-            },
-            {
-                "occasion": " Repeated Test Event ",
-                "invited_count": 120,
-                "year": 2017,
-                "month": 5,
-                "day": 10,
-                "cancelled": true
-            },
-            {
-                "occasion": " Repeated Test Event ",
-                "invited_count": 120,
-                "year": 2023,
-                "month": 5,
-                "day": 10
-            },
-            {
-                "occasion": " Repeated Test Event ",
-                "invited_count": 120,
-                "year": 2017,
-                "month": 5,
-                "day": 10,
-                "cancelled": true
-            },
-            {
-                "occasion": " Repeated Test Event ",
-                "invited_count": 120,
-                "year": 2017,
-                "month": 5,
-                "day": 10
-            },
-            {
-                "occasion": " Repeated Test Event ",
-                "invited_count": 120,
-                "year": 2017,
-                "month": 5,
-                "day": 10,
-                "cancelled": true
-            },
-            {
-                "occasion": " Repeated Test Event ",
-                "invited_count": 120,
-                "year": 2017,
-                "month": 5,
-                "day": 10
-            },
-            {
-                "occasion": " Test Event",
-                "invited_count": 120,
-                "year": 2017,
-                "month": 5,
-                "day": 11
-            }
-        ]
+    const closeModal = () => {
+        setIsModalOpen(false);
     };
 
-    const months = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December"
-    ];
+    useEffect(() => {
+        // Fetch events from the server when the component mounts
+        const fetchEvents = async () => {
+            try {
+                const res = await axios.get("http://localhost:8800/events");
+                setAppoint(res.data);
+            } catch (error) {
+                console.error('Error fetching events', error);
+            }
+        };
+
+        fetchEvents();
+    }, []);
+
+    const isEventOnDate = (date) => {
+        return appoint.some((event) => dayjs(event.date).isSame(date, 'day'));
+    };
+
+    const handleDateClick = (date) => {
+        const clickedEvents = appoint.filter((event) => dayjs(event.date).isSame(date, 'day'));
+        setSelectDate(date);
+        setSelectedEvent(clickedEvents);
+    };
+
+    const handleChange = (e) => {
+        setAppoint({ ...appoint, date: dayjs(e.target.value).format('YYYY-MM-DD') });
+    };
+
+    const handleDateChange = async (e) => {
+        e.preventDefault();
+
+        try {
+            await axios.put(`http://localhost:8800/appointment/${appoint.appID}`, appoint);
+            console.log(`Update event date to: ${appoint.date}`);
+        } catch (error) {
+            console.error(error);
+        }
+        // Close the modal after updating the event date
+        closeModal();
+    };
 
     return (
-        <div className="Calendar">
-            <Helmet>
-                <meta charset="utf-8" />
-                <title>Calendar</title>
-                <meta name="description" content="Calendar" />
-                <meta name="author" content="Charles Anderson" />
-                <link rel="preconnect" href="https://fonts.googleapis.com"/>
-                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-                <link href="https://fonts.googleapis.com/css2?family=Catamaran:wght@100;200;300;400;500;600;700;800;900&display=swap"
-                    rel="stylesheet"/>
-                <script src="https://kit.fontawesome.com/957263c2c4.js" crossorigin="anonymous"></script>
-            </Helmet>
-            <body>
-                <div class="content">
-                    <div class="calendar-container">
-                        <div class="calendar">
-                            <div class="year-header">
-                                <span class="left-button" id="prev"> &lang; </span>
-                                <span class="year" id="label"></span>
-                                <span class="right-button" id="next"> &rang; </span>
-                            </div>
-                            <table class="months-table">
-                                <tbody>
-                                    <tr class="months-row">
-                                        <td class="month">Jan</td>
-                                        <td class="month">Feb</td>
-                                        <td class="month">Mar</td>
-                                        <td class="month">Apr</td>
-                                        <td class="month">May</td>
-                                        <td class="month">Jun</td>
-                                        <td class="month">Jul</td>
-                                        <td class="month">Aug</td>
-                                        <td class="month">Sep</td>
-                                        <td class="month">Oct</td>
-                                        <td class="month">Nov</td>
-                                        <td class="month">Dec</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-
-                            <table class="days-table">
-                                <td class="day">Sun</td>
-                                <td class="day">Mon</td>
-                                <td class="day">Tue</td>
-                                <td class="day">Wed</td>
-                                <td class="day">Thu</td>
-                                <td class="day">Fri</td>
-                                <td class="day">Sat</td>
-                            </table>
-                            <div class="frame">
-                                <table class="dates-table">
-                                    <tbody class="tbody">
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+        <div className="outer-calendar flex gap-10 sm:divide-x justify-center sm:w-1/2 mx-auto  h-screen items-center sm:flex-row flex-col">
+            <div className="w-96 h-96 ">
+                <div className="flex justify-between items-center">
+                    <h1 className="select-none font-semibold">
+                        {months[today.month()]}, {today.year()}
+                    </h1>
+                    <div className="flex gap-10 items-center ">
+                        <GrFormPrevious
+                            className="w-5 h-5 cursor-pointer hover:scale-105 transition-all"
+                            onClick={() => {
+                                setToday(today.month(today.month() - 1));
+                            }}
+                        />
+                        <h1
+                            className=" cursor-pointer hover:scale-105 transition-all"
+                            onClick={() => {
+                                setToday(currentDate);
+                            }}
+                        >
+                            Today
+                        </h1>
+                        <GrFormNext
+                            className="w-5 h-5 cursor-pointer hover:scale-105 transition-all"
+                            onClick={() => {
+                                setToday(today.month(today.month() + 1));
+                            }}
+                        />
                     </div>
-                    <div class="events-container">
-                    </div>
-                    <div class="dialog" id="dialog">
-                        <h2 class="dialog-header"> Event Name </h2>
-                        <form class="form" id="form">
-                            <div class="form-container" align="center">
-                                <label for="changeDate">Change Date to</label>
-                                <input id="changeDate" type="datetime-local" name="changeDate"/>
-                                    <div>
-                                        <input type="button" value="Cancel" class="button" id="cancel-button"/>
-                                            <input type="button" value="OK" class="button" id="ok-button"/>
-                                            </div>
-                                    </div>
-                                </form>
+                </div>
+                <div className="grid grid-cols-7 ">
+                    {days.map((day, index) => {
+                        return (
+                            <h1
+                                key={index}
+                                className="text-sm text-center h-14 w-14 grid place-content-center text-gray-500 select-none"
+                            >
+                                {day}
+                            </h1>
+                        );
+                    })}
+                </div>
+                <div className=" grid grid-cols-7 ">
+                    {generateDate(today.month(), today.year()).map(({ date, currentMonth, today }, index) => {
+                        return (
+                            <div
+                                key={index}
+                                className="date p-2 text-center h-14 grid place-content-center text-sm border-t"
+                            >
+                                <h1
+                                    className={cn(
+                                        currentMonth ? '' : 'text-gray-400',
+                                        today ? 'bg-red-600 text-white' : '',
+                                        selectDate.toDate().toDateString() === date.toDate().toDateString()
+                                            ? 'bg-black text-white'
+                                            : '',
+                                        isEventOnDate(date) ? 'border-blue-500' : '',
+                                        'h-10 w-10 rounded-full grid place-content-center hover:bg-black hover:text-white transition-all cursor-pointer select-none'
+                                    )}
+                                    onClick={() => {
+                                        handleDateClick(date);
+                                    }}
+                                >
+                                    {date.date()}
+                                </h1>
                             </div>
+                        );
+                    })}
+                </div>
+            </div>
+            <div className="forDate h-96 w-96 sm:px-5">
+                <h1 className="font-semibold">
+                    {selectedEvent && selectedEvent.length > 0
+                        ? `Events on ${selectDate.toDate().toDateString()}`
+                        : `Schedule for ${selectDate.toDate().toDateString()}`}
+                </h1>
+                {selectedEvent && selectedEvent.length > 0 ? (
+                    <ul>
+                        {selectedEvent.map((event) => (
+                            <li key={event.appID} onClick={() => openModal()}>
+                                {event.petID && <div>{event.procName}</div>}
+                                <div>for {event.petName}</div>
+                            </li>
+                        ))}
+                    </ul>
+                ) : (
+                    <p className="text-gray-400">No events for the selected date.</p>
+                )}
+            </div>
+
+            {/* Modal for changing the event date */}
+            {isModalOpen && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <span className="close" onClick={() => closeModal()}>
+                            &times;
+                        </span>
+                        <h2>Change Event Date</h2>
+                        <label>New Date:</label>
+                        <input
+                            type="date"
+                            value={appoint.date.format('YYYY-MM-DD')}
+                            onChange={handleChange}
+                        />
+                        <button onClick={handleDateChange}>Save Changes</button>
                     </div>
-                    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
-                        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous">
-                    </script>
-                    <script src="calendar.js"></script>
+                </div>
+            )}
 
-                    <nav class="navigate">
-                        <Link to="/articles"><a href="#"><i class="fa-solid fa-book-open fa-2x"></i></a></Link>
-                        <Link to="/"><a href="#"><i class="fa-solid fa-house fa-2x"></i></a></Link>
-                        <Link to="/calendar"><a href="#"><i class="fa-regular fa-calendar-days fa-2x"></i></a></Link>
-                    </nav>
-
-            </body>
         </div>
-    )
+    );
 }
-
-export default Calendar;
