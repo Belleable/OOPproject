@@ -66,7 +66,7 @@ const EditPet = () => {
 
         try {
             await axios.put(`http://localhost:8000/users/${petId}`, pet); // Replace with your API endpoint
-            navigate("/")
+            navigate("/pet-info")
         } catch (error) {
             console.error(error);
             // Handle error (e.g., show an error message)
@@ -85,7 +85,7 @@ const EditPet = () => {
                 <script src="https://kit.fontawesome.com/957263c2c4.js" crossorigin="anonymous"></script>
             </Helmet>
             <div class="back">
-                <a href="#"><Link to='/'><i class="fa-solid fa-chevron-left fa-3x"></i></Link></a>
+                <a href="#"><Link to='/pet-info'><i class="fa-solid fa-chevron-left fa-3x"></i></Link></a>
             </div>
             <main>
                 <form action="" onSubmit={handleClick}>
@@ -121,7 +121,7 @@ const EditPet = () => {
                         <label for="DoB">Birthday:</label>
                         <input id="DoB" type="date" name="petDoB" value={pet.petDoB} onChange={handleChange} />
                         <div class="CancelAndSubmit">
-                            <button id="cancel" class="button">Cancel</button>
+                            <Link to="/pet-info"><button id="cancel" class="button">Cancel</button></Link>
                             <button id="submit" class="button" type="submit" name="submit" onClick={handleClick}>Submit</button>
                         </div>
                     </div>

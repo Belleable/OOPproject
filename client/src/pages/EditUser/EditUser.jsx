@@ -40,12 +40,15 @@ const EditUser = () => {
 
         try {
             await axios.put(`http://localhost:8000/users/${userId}`, user); // Replace with your API endpoint
-            navigate("/")
+            navigate("/profile")
         } catch (error) {
             console.error(error);
-            // Handle error (e.g., show an error message)
         }
     };
+
+    const handleClick = async (e) => {
+        navigate("/profile")
+    }
 
     window.onload = function () {
         const inputFile = document.getElementById('file');
@@ -86,7 +89,7 @@ const EditUser = () => {
             </Helmet>
             <body>
                 <div class="back">
-                    <a href="#"><i class="fa-solid fa-chevron-left fa-3x"></i></a>
+                    <Link to='/profile'><a href="#"><i class="fa-solid fa-chevron-left fa-3x"></i></a></Link>
                 </div>
 
                 <main>
@@ -111,7 +114,7 @@ const EditUser = () => {
                         </div>
 
                         <div class="CancelAndSubmit">
-                            <button id="cancel" class="button">Cancel</button>
+                            <button id="cancel" class="button" onClick={handleClick}>Cancel</button>
                             <button id="submit" class="button" type="submit" name="submit">Save Changes</button>
                         </div>
 

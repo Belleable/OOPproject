@@ -35,7 +35,7 @@ const Records = () => {
             <body>
                 <header>
                     <div class="back">
-                        <a href="#"><i class="fa-solid fa-chevron-left fa-3x"></i></a>
+                        <Link to="/pet-info"></Link><a href="#"><i class="fa-solid fa-chevron-left fa-3x"></i></a>
                     </div>
                     <h1>{records.petName}'s record</h1>
                 </header>
