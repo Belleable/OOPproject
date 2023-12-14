@@ -34,7 +34,7 @@ const PetInfo = () => {
         // Fetch data from the first path
         const fetchPet = async () => {
             try {
-                const response = await axios.get('your-first-endpoint');
+                const response = await axios.get(`/api/pets/${petId}`);
                 setPet(response.data);
             } catch (error) {
                 console.error('Error fetching pet data:', error);
@@ -54,7 +54,7 @@ const PetInfo = () => {
         // Call the functions to fetch data when the component mounts
         fetchPet();
         fetchVaccine();
-    }, []);
+    }, [petID]);
 
     return (
         <div className="petInfo">
